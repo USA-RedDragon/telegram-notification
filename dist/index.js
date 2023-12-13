@@ -28997,11 +28997,13 @@ async function run() {
                     },
                     body: JSON.stringify(issuePayload),
                 };
+                console.log(JSON.stringify(issuePayload));
                 fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, issueOptions).then((response) => {
                     if (!response.ok) {
                         core.setFailed(`HTTP error ${response.status}`);
                     }
                 }).catch((e) => {
+                    console.error(e);
                     core.setFailed(e);
                 });
                 break;
@@ -29012,6 +29014,7 @@ async function run() {
         }
     }
     catch (e) {
+        console.error(e);
         core.setFailed(e);
     }
 }

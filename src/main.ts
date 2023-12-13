@@ -67,11 +67,14 @@ export async function run(): Promise<void> {
           body: JSON.stringify(issuePayload),
         };
 
+        console.log(JSON.stringify(issuePayload))
+
         fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, issueOptions).then((response: Response) => {
           if (!response.ok) {
             core.setFailed(`HTTP error ${response.status}`);
           }
         }).catch((e: any) => {
+          console.error(e);
           core.setFailed(e);
         });
 
@@ -82,6 +85,7 @@ export async function run(): Promise<void> {
         core.setFailed('Event not supported');
     }
   } catch (e: any) {
+    console.error(e);
     core.setFailed(e);
   }
 }
