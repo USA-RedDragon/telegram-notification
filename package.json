@@ -1,9 +1,9 @@
 {
   "name": "telegram-notification",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "",
   "scripts": {
-    "build": "ncc build index.js -o dist --license licenses.txt",
+    "build": "ncc build src/index.ts -o dist --license licenses.txt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jacob McSwain <jacob@mcswain.dev>",
@@ -13,6 +13,11 @@
     "@actions/github": "^6.0.0"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.1"
+    "@types/node": "^20.10.4",
+    "@vercel/ncc": "^0.38.1",
+    "typescript": "^5.3.3"
+  },
+  "exports": {
+    ".": "./dist/index.js"
   }
 }

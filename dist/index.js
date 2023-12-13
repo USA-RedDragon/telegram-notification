@@ -28906,6 +28906,120 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 399:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core = __importStar(__nccwpck_require__(2186));
+const github = __importStar(__nccwpck_require__(5438));
+function escapeMarkdown(text) {
+    // Escape markdown characters https://core.telegram.org/bots/api#markdownv2-style
+    // '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'
+    let escaped = '';
+    escaped = text.replace('_', '\\_');
+    escaped = escaped.replace('*', '\\*');
+    escaped = escaped.replace('[', '\\[');
+    escaped = escaped.replace(']', '\\]');
+    escaped = escaped.replace('(', '\\(');
+    escaped = escaped.replace(')', '\\)');
+    escaped = escaped.replace('~', '\\~');
+    escaped = escaped.replace('`', '\\`');
+    escaped = escaped.replace('>', '\\>');
+    escaped = escaped.replace('#', '\\#');
+    escaped = escaped.replace('+', '\\+');
+    escaped = escaped.replace('-', '\\-');
+    escaped = escaped.replace('=', '\\=');
+    escaped = escaped.replace('|', '\\|');
+    escaped = escaped.replace('{', '\\{');
+    escaped = escaped.replace('}', '\\}');
+    escaped = escaped.replace('.', '\\.');
+    escaped = escaped.replace('!', '\\!');
+    return escaped;
+}
+/**
+ * The main function for the action.
+ * @returns {Promise<void>} Resolves when the action is complete.
+ */
+async function run() {
+    try {
+        const botToken = core.getInput('bot-token');
+        const chatID = core.getInput('chat-id');
+        switch (github.context.eventName) {
+            case 'issues':
+                const issueNumber = escapeMarkdown(github.context.payload.issue?.number.toString());
+                const issueLink = escapeMarkdown(github.context.payload.issue?.html_url);
+                const repoLink = escapeMarkdown(github.context.payload.repository?.html_url);
+                const repoName = escapeMarkdown(github.context.payload.repository?.name);
+                const action = escapeMarkdown(github.context.payload.action);
+                const issueTitle = github.context.payload.issue?.title;
+                const issueBody = github.context.payload.issue?.body;
+                const issueUser = escapeMarkdown(github.context.payload.issue?.user?.login);
+                const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url);
+                let issueMarkdown = `[#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
+                issueMarkdown += `Title: **${issueTitle}**\n\n`;
+                // For each line in the body, add a > to make it a quote
+                issueMarkdown += issueBody.split('\n').map((line) => `> ${line}`).join('\n');
+                const issuePayload = {
+                    chat_id: chatID,
+                    text: issueMarkdown,
+                    parse_mode: 'MarkdownV2',
+                };
+                const issueOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(issuePayload),
+                };
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, issueOptions).then((response) => {
+                    if (!response.ok) {
+                        core.setFailed(`HTTP error ${response.status}`);
+                    }
+                }).catch((e) => {
+                    core.setFailed(e);
+                });
+                break;
+            case 'discussion':
+                break;
+            default:
+                core.setFailed('Event not supported');
+        }
+    }
+    catch (e) {
+        core.setFailed(e);
+    }
+}
+exports.run = run;
+
+
+/***/ }),
+
 /***/ 9491:
 /***/ ((module) => {
 
@@ -30788,91 +30902,17 @@ module.exports = parseParams
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
-const core = __nccwpck_require__(2186);
-const github = __nccwpck_require__(5438);
+"use strict";
+var exports = __webpack_exports__;
 
-function escapeMarkdown(text) {
-  // Escape markdown characters https://core.telegram.org/bots/api#markdownv2-style
-  // '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'
-  let escaped = '';
-  escaped = text.replace('_', '\\_')
-  escaped = escaped.replace('*', '\\*')
-  escaped = escaped.replace('[', '\\[')
-  escaped = escaped.replace(']', '\\]')
-  escaped = escaped.replace('(', '\\(')
-  escaped = escaped.replace(')', '\\)')
-  escaped = escaped.replace('~', '\\~')
-  escaped = escaped.replace('`', '\\`')
-  escaped = escaped.replace('>', '\\>')
-  escaped = escaped.replace('#', '\\#')
-  escaped = escaped.replace('+', '\\+')
-  escaped = escaped.replace('-', '\\-')
-  escaped = escaped.replace('=', '\\=')
-  escaped = escaped.replace('|', '\\|')
-  escaped = escaped.replace('{', '\\{')
-  escaped = escaped.replace('}', '\\}')
-  escaped = escaped.replace('.', '\\.')
-  escaped = escaped.replace('!', '\\!')
-
-  return escaped;
-}
-
-try {
-  const botToken = core.getInput('bot-token');
-  const chatID = core.getInput('chat-id');
-
-  switch (github.context.eventName) {
-    case 'issues':
-      const issueNumber = escapeMarkdown(github.context.payload.issue?.number);
-      const issueLink = escapeMarkdown(github.context.payload.issue?.html_url);
-      const repoLink = escapeMarkdown(github.context.payload.repository?.html_url);
-      const repoName = escapeMarkdown(github.context.payload.repository?.name);
-      const action = escapeMarkdown(github.context.payload.action);
-      const issueTitle = github.context.payload.issue?.title;
-      const issueBody = github.context.payload.issue?.body;
-      const issueUser = escapeMarkdown(github.context.payload.issue?.user?.login);
-      const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url);
-
-      const issueMarkdown = `[#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
-      issueMarkdown += `Title: **${issueTitle}**\n\n`;
-      // For each line in the body, add a > to make it a quote
-      issueMarkdown += issueBody.split('\n').map((line) => `> ${line}`).join('\n');
-
-      const issuePayload = {
-        chat_id: chatID,
-        text: issueMarkdown,
-        parse_mode: 'MarkdownV2',
-      };
-
-      const issueOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(issuePayload),
-      };
-
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, issueOptions).then((response) => {
-        if (!response.ok) {
-          core.setFailed(`HTTP error ${response.status}`);
-        }
-      }).catch((e) => {
-        console.log(e);
-        core.setFailed(e.message);
-      });
-
-      break;
-    case 'discussion':
-      break;
-    default:
-      core.setFailed('Event not supported');
-  }
-} catch (e) {
-  console.log(e);
-  core.setFailed(e.message);
-}
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+/**
+ * The entrypoint for the action.
+ */
+const main_1 = __nccwpck_require__(399);
+(0, main_1.run)();
 
 })();
 
