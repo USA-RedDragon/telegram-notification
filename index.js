@@ -67,6 +67,7 @@ try {
           core.setFailed(`HTTP error ${response.status}`);
         }
       }).catch((e) => {
+        console.log(e);
         core.setFailed(e.message);
       });
 
@@ -76,6 +77,7 @@ try {
     default:
       core.setFailed('Event not supported');
   }
-} catch (error) {
-  core.setFailed(error.message);
+} catch (e) {
+  console.log(e);
+  core.setFailed(e.message);
 }
