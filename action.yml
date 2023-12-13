@@ -1,0 +1,12 @@
+name: 'Telegram Notifier'
+description: 'Send a Telegram notification on issue or discussion'
+inputs:
+  bot-token:
+    description: 'Telegram bot token'
+    required: true
+  chat-id:
+    description: 'Telegram chat id'
+    required: true
+runs:
+  using: 'node20'
+  main: 'index.js'
