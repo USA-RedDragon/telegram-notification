@@ -28943,24 +28943,24 @@ function escapeMarkdown(text) {
     // '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'
     // they should be prefixed by 3 backslashes
     let escaped = '';
-    escaped = text.replace('_', '\\\\\\_');
-    escaped = escaped.replace('*', '\\\\\\*');
-    escaped = escaped.replace('[', '\\\\\\[');
-    escaped = escaped.replace(']', '\\\\\\]');
-    escaped = escaped.replace('(', '\\\\\\(');
-    escaped = escaped.replace(')', '\\\\\\)');
-    escaped = escaped.replace('~', '\\\\\\~');
-    escaped = escaped.replace('`', '\\\\\\`');
-    escaped = escaped.replace('>', '\\\\\\>');
-    escaped = escaped.replace('#', '\\\\\\#');
-    escaped = escaped.replace('+', '\\\\\\+');
-    escaped = escaped.replace('-', '\\\\\\-');
-    escaped = escaped.replace('=', '\\\\\\=');
-    escaped = escaped.replace('|', '\\\\\\|');
-    escaped = escaped.replace('{', '\\\\\\{');
-    escaped = escaped.replace('}', '\\\\\\}');
-    escaped = escaped.replace('.', '\\\\\\.');
-    escaped = escaped.replace('!', '\\\\\\!');
+    escaped = text.replaceAll('_', '\\_');
+    escaped = escaped.replaceAll('*', '\\*');
+    escaped = escaped.replaceAll('[', '\\[');
+    escaped = escaped.replaceAll(']', '\\]');
+    escaped = escaped.replaceAll('(', '\\(');
+    escaped = escaped.replaceAll(')', '\\)');
+    escaped = escaped.replaceAll('~', '\\~');
+    escaped = escaped.replaceAll('`', '\\`');
+    escaped = escaped.replaceAll('>', '\\>');
+    escaped = escaped.replaceAll('#', '\\#');
+    escaped = escaped.replaceAll('+', '\\+');
+    escaped = escaped.replaceAll('-', '\\-');
+    escaped = escaped.replaceAll('=', '\\=');
+    escaped = escaped.replaceAll('|', '\\|');
+    escaped = escaped.replaceAll('{', '\\{');
+    escaped = escaped.replaceAll('}', '\\}');
+    escaped = escaped.replaceAll('.', '\\.');
+    escaped = escaped.replaceAll('!', '\\!');
     return escaped;
 }
 /**
@@ -28978,11 +28978,11 @@ async function run() {
                 const repoLink = escapeMarkdown(github.context.payload.repository?.html_url);
                 const repoName = escapeMarkdown(github.context.payload.repository?.name);
                 const action = escapeMarkdown(github.context.payload.action);
-                const issueTitle = github.context.payload.issue?.title;
-                const issueBody = github.context.payload.issue?.body;
+                const issueTitle = escapeMarkdown(github.context.payload.issue?.title);
+                const issueBody = escapeMarkdown(github.context.payload.issue?.body);
                 const issueUser = escapeMarkdown(github.context.payload.issue?.user?.login);
                 const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url);
-                let issueMarkdown = `[\\\\\\#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
+                let issueMarkdown = `[\\#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
                 issueMarkdown += `Title: **${issueTitle}**\n\n`;
                 // For each line in the body, add a > to make it a quote
                 issueMarkdown += issueBody.split('\n').map((line) => `> ${line}`).join('\n');
