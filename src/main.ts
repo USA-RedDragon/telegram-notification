@@ -4,25 +4,26 @@ import * as github from '@actions/github'
 function escapeMarkdown(text: string) {
   // Escape markdown characters https://core.telegram.org/bots/api#markdownv2-style
   // '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'
+  // they should be prefixed by 3 backslashes
   let escaped = '';
-  escaped = text.replace('_', '\\\\\\_')
-  escaped = escaped.replace('*', '\\\\\\*')
-  escaped = escaped.replace('[', '\\\\\\[')
-  escaped = escaped.replace(']', '\\\\\\]')
-  escaped = escaped.replace('(', '\\\\\\(')
-  escaped = escaped.replace(')', '\\\\\\)')
-  escaped = escaped.replace('~', '\\\\\\~')
-  escaped = escaped.replace('`', '\\\\\\`')
-  escaped = escaped.replace('>', '\\\\\\>')
-  escaped = escaped.replace('#', '\\\\\\#')
-  escaped = escaped.replace('+', '\\\\\\+')
-  escaped = escaped.replace('-', '\\\\\\-')
-  escaped = escaped.replace('=', '\\\\\\=')
-  escaped = escaped.replace('|', '\\\\\\|')
-  escaped = escaped.replace('{', '\\\\\\{')
-  escaped = escaped.replace('}', '\\\\\\}')
-  escaped = escaped.replace('.', '\\\\\\.')
-  escaped = escaped.replace('!', '\\\\\\!')
+  escaped = text.replace('_', '\\\\\\_');
+  escaped = escaped.replace('*', '\\\\\\*');
+  escaped = escaped.replace('[', '\\\\\\[');
+  escaped = escaped.replace(']', '\\\\\\]');
+  escaped = escaped.replace('(', '\\\\\\(');
+  escaped = escaped.replace(')', '\\\\\\)');
+  escaped = escaped.replace('~', '\\\\\\~');
+  escaped = escaped.replace('`', '\\\\\\`');
+  escaped = escaped.replace('>', '\\\\\\>');
+  escaped = escaped.replace('#', '\\\\\\#');
+  escaped = escaped.replace('+', '\\\\\\+');
+  escaped = escaped.replace('-', '\\\\\\-');
+  escaped = escaped.replace('=', '\\\\\\=');
+  escaped = escaped.replace('|', '\\\\\\|');
+  escaped = escaped.replace('{', '\\\\\\{');
+  escaped = escaped.replace('}', '\\\\\\}');
+  escaped = escaped.replace('.', '\\\\\\.');
+  escaped = escaped.replace('!', '\\\\\\!');
 
   return escaped;
 }
