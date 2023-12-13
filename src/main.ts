@@ -49,7 +49,7 @@ export async function run(): Promise<void> {
         const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url! as string);
 
         let issueMarkdown = `[\\#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
-        issueMarkdown += `Title: **${issueTitle}**\n\n`;
+        issueMarkdown += `> ${issueTitle}\n\n`;
         // For each line in the body, add a > to make it a quote
         issueMarkdown += issueBody.split('\n').map((line) => `> ${line}`).join('\n');
 

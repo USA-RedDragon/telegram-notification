@@ -28941,7 +28941,6 @@ const github = __importStar(__nccwpck_require__(5438));
 function escapeMarkdown(text) {
     // Escape markdown characters https://core.telegram.org/bots/api#markdownv2-style
     // '_', '*', '[', ']', '(', ')', '~', '`', '>', '#', '+', '-', '=', '|', '{', '}', '.', '!'
-    // they should be prefixed by 3 backslashes
     let escaped = '';
     escaped = text.replaceAll('_', '\\_');
     escaped = escaped.replaceAll('*', '\\*');
@@ -28983,7 +28982,7 @@ async function run() {
                 const issueUser = escapeMarkdown(github.context.payload.issue?.user?.login);
                 const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url);
                 let issueMarkdown = `[\\#${issueNumber}](${issueLink}) by [${issueUser}](${issueUserLink}) in [${repoName}](${repoLink}) ${action}\n\n`;
-                issueMarkdown += `Title: **${issueTitle}**\n\n`;
+                issueMarkdown += `> ${issueTitle}\n\n`;
                 // For each line in the body, add a > to make it a quote
                 issueMarkdown += issueBody.split('\n').map((line) => `> ${line}`).join('\n');
                 const issuePayload = {
