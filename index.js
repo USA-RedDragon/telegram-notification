@@ -38,7 +38,7 @@ try {
       const repoLink = escapeMarkdown(github.context.payload.repository?.html_url);
       const repoName = escapeMarkdown(github.context.payload.repository?.name);
       const action = escapeMarkdown(github.context.payload.action);
-      const issueTitle = escapeMarkdown(github.context.payload.issue?.title);
+      const issueTitle = github.context.payload.issue?.title;
       const issueBody = github.context.payload.issue?.body;
       const issueUser = escapeMarkdown(github.context.payload.issue?.user?.login);
       const issueUserLink = escapeMarkdown(github.context.payload.issue?.user?.html_url);
