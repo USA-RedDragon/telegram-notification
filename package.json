@@ -13,7 +13,7 @@
     "@actions/github": "^6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.19.24",
+    "@types/node": "^20.19.25",
     "@vercel/ncc": "^0.38.4",
     "typescript": "^5.9.3"
   },
