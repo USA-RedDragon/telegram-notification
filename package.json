@@ -9,13 +9,13 @@
   "author": "Jacob McSwain <jacob@mcswain.dev>",
   "license": "",
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.1"
+    "@actions/core": "1.11.1",
+    "@actions/github": "6.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.19.27",
-    "@vercel/ncc": "^0.38.4",
-    "typescript": "^5.9.3"
+    "@types/node": "20.19.27",
+    "@vercel/ncc": "0.38.4",
+    "typescript": "5.9.3"
   },
   "exports": {
     ".": "./dist/index.js"
