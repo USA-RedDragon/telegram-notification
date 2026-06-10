@@ -15,7 +15,7 @@
   "devDependencies": {
     "@types/node": "20.19.43",
     "@vercel/ncc": "0.44.0",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   },
   "exports": {
     ".": "./dist/index.js"
